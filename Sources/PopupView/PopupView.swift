@@ -142,6 +142,7 @@ public struct Popup<PopupContent: View>: ViewModifier {
         case leftSlide
         case rightSlide
         case centerScale
+        case fade
     }
 
     public struct PopupParameters {
@@ -513,6 +514,8 @@ public struct Popup<PopupContent: View>: ViewModifier {
             return CGPoint(x: screenWidth, y: displayedOffsetY)
         case .centerScale:
             return CGPoint(x: displayedOffsetX, y: displayedOffsetY)
+        case .fade:
+            return CGPoint(x: displayedOffsetX, y: displayedOffsetY)
         }
     }
 
@@ -825,7 +828,7 @@ public struct Popup<PopupContent: View>: ViewModifier {
             if dragState.translation.width > 0 {
                 return CGSize(width: dragState.translation.width, height: 0)
             }
-        case .centerScale:
+        case .centerScale, .fade:
             return .zero
         }
         return .zero
@@ -870,7 +873,7 @@ public struct Popup<PopupContent: View>: ViewModifier {
             if drag.translation.width > referenceX {
                 shouldDismiss = true
             }
-        case .centerScale:
+        case .centerScale, .fade:
             break
         }
 
